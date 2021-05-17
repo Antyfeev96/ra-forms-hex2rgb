@@ -4,9 +4,9 @@ import PropTypes from 'prop-types'
 export default function Form(props) {
   const { color, onChange } = props;
 
-  const convertColor = (value) => {
-    if (value.length < 7) return '';
-    const hex = value.replace('#', '');
+  const convertColor = () => {
+    if (color.length < 7) return '';
+    const hex = color.replace('#', '');
     if (hex.length !== 6 || hex.match(/[g-z]/)) return 'Ошибка';
     const bigint = parseInt(hex, 16);
     const r = (bigint >> 16) & 255;
