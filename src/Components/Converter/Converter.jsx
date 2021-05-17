@@ -1,16 +1,17 @@
 import React, { useState } from 'react'
-import PropTypes from 'prop-types'
 import Form from '../Form/Form'
 
 export default function Converter() {
-  const [state, setState] = useState('#fff');
+  const [state, setState] = useState('#ffffff');
+
+  const onChange = (event) => {
+    event.preventDefault();
+    setState(() => event.target.value)
+  }
+
   return (
-    <div className="converter">
-      <Form color={state} />
+    <div className="converter" style={{backgroundColor: state}}>
+      <Form color={state} onChange={onChange} />
     </div>
   )
-}
-
-Converter.propTypes = {
-
 }

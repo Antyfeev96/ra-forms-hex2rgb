@@ -1,30 +1,29 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-function Form(props) {
-  const { color } = props;
+export default function Form(props) {
+  const { color, onChange } = props;
 
   const convertColor = (value) => {
-    if (value.length < 7 || value[0] !== '#') return
-    const bigint = parseInt(value, 16);
+    if (value.length < 7) return '';
+    const hex = value.replace('#', '');
+    if (hex.length !== 6 || hex.match(/[g-z]/)) return 'Ошибка';
+    const bigint = parseInt(hex, 16);
     const r = (bigint >> 16) & 255;
     const g = (bigint >> 8) & 255;
     const b = bigint & 255;
-
-    return r + "," + g + "," + b;
+    return `rgb(${r}, ${g}, ${b})`;
   }
 
   return (
     <form className="form">
-      <input type="text" name="hex" id="hex" defaultValue={color} />
-      <div id="rgb"></div>
+      <input type="text" name="hex" id="hex" defaultValue={color} onChange={onChange} />
+      <div id="rgb">{convertColor(color)}</div>
     </form>
   )
 }
 
 Form.propTypes = {
-
+  color: PropTypes.string,
+  onChange: PropTypes.func,
 }
-
-export default Form
-
